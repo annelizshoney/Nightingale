@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy import Date
 from sqlalchemy import DateTime
@@ -31,5 +31,5 @@ class Elder(Base):
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.utcnow
     )
