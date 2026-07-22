@@ -5,4 +5,6 @@ class Base(DeclarativeBase):
     pass
 
 
-import app.models
+from app import models as _models
+
+del _models

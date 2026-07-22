@@ -1,15 +1,17 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from app.adk.doctor_agent import DoctorAgent
+from app.core.dependencies import get_doctor_agent
+from app.schemas.agent import AgentResponse
 
 router = APIRouter(tags=["Doctor"])
 
 
-@router.get("/doctor-summary")
-def doctor_summary():
-
-    return {
-        "success": True,
-        "data": {
-            "summary": "Patient has stable vitals with one missed medication this week.",
-            "risk": "Medium"
+@router.get("/doctor-summary", response_model=AgentResponse)
+def doctor_summary(agent: DoctorAgent = Depends(get_doctor_agent)) -> AgentResponse:
+    return agent.generate(
+        {
+            "request": "Prepare a concise clinical summary for the doctor.",
+            "metadata": {"source": "doctor_summary"},
         }
-    }
+    )
