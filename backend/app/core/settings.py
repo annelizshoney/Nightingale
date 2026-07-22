@@ -2,17 +2,21 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = "Nightingale"
-    APP_VERSION: str = "1.0.0"
-    DEBUG: bool = True
 
-    API_PREFIX: str = "/api/v1"
+    APP_NAME: str
+    APP_VERSION: str
 
-    LOG_LEVEL: str = "INFO"
+    DEBUG: bool
+
+    API_PREFIX: str
+
+    LOG_LEVEL: str
+
+    DATABASE_URL: str
 
     model_config = SettingsConfigDict(
         env_file=".env",
-        extra="ignore",
+        extra="ignore"
     )
 
 
